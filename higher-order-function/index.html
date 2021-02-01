@@ -5,5 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>高阶函数&柯里化</title>
   </head>
-  <body></body>
+  <body>
+    <div id="test"></div>
+
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+
+    <script type="text/babel">
+      // https://github.com/jgsrty/react-2021
+      class Login extends React.Component {
+        state = {
+          username: "",
+          passWord: "",
+        };
+        handleSubmit = (event) => {
+          event.preventDefault();
+          console.log(this.state);
+        };
+        submitForm(type) {
+          return (event) => {
+            this.setState({ [type]: event.target.value });
+          };
+        }
+        render() {
+          return (
+            <form action="" onSubmit={this.handleSubmit}>
+              <div>
+                用户名：
+                <input
+                  onChange={this.submitForm("username")}
+                  type="text"
+                  name="username"
+                />
+              </div>
+              <div>
+                密码：
+                <input
+                  onChange={this.submitForm("passWord")}
+                  type="password"
+                  name="passWord"
+                />
+              </div>
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(<Login />, document.getElementById("test"));
+    </script>
+  </body>
 </html>
