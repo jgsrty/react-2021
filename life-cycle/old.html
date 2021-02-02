@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="test"></div>
+
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("constructor");
+          super(props);
+          this.state = { count: 0 };
+        }
+        componentWillMount() {
+          console.log("componentWillMount");
+        }
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+        }
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          return false;
+        }
+        componentWillUpdate() {
+          console.log("componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("componentDidUpdate");
+        }
+        render() {
+          console.log("render");
+          let { count } = this.state;
+          return (
+            <div>
+              <h2>current add : {count}</h2>
+              <button onClick={this.add}>add</button>
+              <button onClick={this.destroy}>destroy</button>
+              <button onClick={this.forceDataUpdate}>forceUpdate</button>
+            </div>
+          );
+        }
+        add = () => {
+          let { count } = this.state;
+          count += 1;
+          this.setState({ count });
+        };
+        destroy = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+        };
+        forceDataUpdate = () => {
+          this.forceUpdate();
+        };
+      }
+
+      class A extends React.Component {
+        state = { carName: "Benz" };
+        changeCar = () => {
+          this.setState({ carName: "Audi" });
+        };
+        render() {
+          return (
+            <div>
+              <button onClick={this.changeCar}>changeCar</button>
+              <B carName={this.state.carName} />
+            </div>
+          );
+        }
+      }
+      class B extends React.Component {
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+        componentWillReceiveProps() {
+          console.log("componentWillReceiveProps");
+        }
+        render() {
+          return (
+            <div>
+              <span>{this.props.carName}</span>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<A />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

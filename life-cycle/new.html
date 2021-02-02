@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="test"></div>
+
+    <script src="../js-17/react.development.js"></script>
+    <script src="../js-17/react-dom.development.js"></script>
+    <script src="../js-17/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("constructor");
+          super(props);
+          this.state = { count: 0 };
+        }
+        static getDerivedStateFromProps(props) {
+          console.log("getDerivedStateFromProps", props);
+          // return { count: 22 };
+          return null;
+        }
+        getSnapshotBeforeUpdate() {
+          console.log("getSnapshotBeforeUpdate");
+          return "snapShot";
+        }
+        // UNSAFE_componentWillMount() {
+        //   console.log("componentWillMount");
+        // }
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+        }
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          return true;
+        }
+        // UNSAFE_componentWillUpdate() {
+        //   console.log("componentWillUpdate");
+        // }
+        componentDidUpdate(preProps, preState, snapShot) {
+          console.log("componentDidUpdate", preProps, preState, snapShot);
+        }
+        render() {
+          console.log("render");
+          let { count } = this.state;
+          return (
+            <div>
+              <h2>current add : {count}</h2>
+              <button onClick={this.add}>add</button>
+              <button onClick={this.destroy}>destroy</button>
+              <button onClick={this.forceDataUpdate}>forceUpdate</button>
+            </div>
+          );
+        }
+        add = () => {
+          let { count } = this.state;
+          count += 1;
+          this.setState({ count });
+        };
+        destroy = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+        };
+        forceDataUpdate = () => {
+          this.forceUpdate();
+        };
+      }
+
+      ReactDOM.render(<Count name={199} />, document.getElementById("test"));
+    </script>
+  </body>
+</html>
