@@ -1,28 +1,18 @@
 import React, { Component } from "react";
-import axios from "axios";
-
+import "./App.css";
+// import axios from "axios";
+import Search from "./components/Search";
+import List from "./components/List";
 export default class App extends Component {
-  getStudents = () => {
-    axios.get("http://localhost:3000/api1/students").then(
-      (res) => {
-        console.log("suc",res);
-      },
-      (err) => console.log(err)
-    );
-  };
-  getCars = () => {
-    axios.get("http://localhost:3000/api2/cars").then(
-      (res) => {
-        console.log("suc",res);
-      },
-      (err) => console.log(err)
-    );
+  state = { users: [] };
+  getUsers = (users) => {
+    this.setState({ users });
   };
   render() {
     return (
       <div>
-        <button onClick={this.getStudents}>get students</button>
-        <button onClick={this.getCars}>get cars</button>
+        <Search getUsers={this.getUsers} />
+        <List users={this.state.users} />
       </div>
     );
   }
