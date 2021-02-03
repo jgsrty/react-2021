@@ -1,18 +1,24 @@
 import React, { Component } from "react";
+import { Link, Route } from "react-router-dom";
 import "./App.css";
-// import axios from "axios";
-import Search from "./components/Search";
-import List from "./components/List";
+import Home from "./components/Home";
+import About from "./components/About";
+
 export default class App extends Component {
-  state = { users: [] };
-  getUsers = (users) => {
-    this.setState({ users });
-  };
   render() {
     return (
       <div>
-        <Search getUsers={this.getUsers} />
-        <List users={this.state.users} />
+        <div className="header">react router demo</div>
+        <div className="content">
+          <div className="nav">
+            <Link to="/home">home</Link>
+            <Link to="/about">about</Link>
+          </div>
+          <div className="content">
+            <Route path="/home" component={Home} />
+            <Route path="/about" component={About} />
+          </div>
+        </div>
       </div>
     );
   }

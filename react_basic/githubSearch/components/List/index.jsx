@@ -7,7 +7,7 @@ export default class List extends Component {
       <div className="list">
         {users.map((item) => {
           return (
-            <div className="item">
+            <div className="item" key={item.id}>
               <a rel="noreferrer" href={item.html_url} target="_blank">
                 <img src={item.avatar_url} alt="" />
               </a>
