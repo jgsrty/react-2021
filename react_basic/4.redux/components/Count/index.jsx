@@ -1,36 +1,42 @@
 import React, { Component } from "react";
+import store from "../../redux/store";
+import {
+  incrementAction,
+  decrementAction,
+  asyncIncrementAction,
+} from "../../redux/count_actions";
 
 export default class Count extends Component {
-  state = { count: 0 };
+  const = { car: "Benz C63" };
+
+  // componentDidMount() {
+  //   store.subscribe(() => {
+  //     this.setState({});
+  //   });
+  // }
   increment = () => {
     let { value } = this.selectNum;
-    let { count } = this.state;
-    this.setState({ count: count + parseInt(value) });
+    store.dispatch(incrementAction(parseInt(value)));
   };
   decrement = () => {
     let { value } = this.selectNum;
-    let { count } = this.state;
-    this.setState({ count: count - parseInt(value) });
+    store.dispatch(decrementAction(parseInt(value)));
   };
   addWhenOdd = () => {
     let { value } = this.selectNum;
-    let { count } = this.state;
-    console.log(count % 2);
+    let count = store.getState();
     if (count % 2 !== 0) {
-      this.setState({ count: count + parseInt(value) });
+      store.dispatch(incrementAction(parseInt(value)));
     }
   };
   addWhenSync = () => {
     let { value } = this.selectNum;
-    let { count } = this.state;
-    setTimeout(() => {
-      this.setState({ count: count + parseInt(value) });
-    }, 500);
+    store.dispatch(asyncIncrementAction(parseInt(value), 500));
   };
   render() {
     return (
       <div>
-        <h3>当前求和：{this.state.count}</h3>
+        <h3>当前求和：{store.getState()}</h3>
         <select ref={(e) => (this.selectNum = e)}>
           <option value="1">1</option>
           <option value="2">2</option>

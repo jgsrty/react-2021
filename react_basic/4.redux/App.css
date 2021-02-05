@@ -1,0 +1,9 @@
+.header {
+  margin-bottom: 20px;
+}
+.content {
+  display: flex;
+}
+.nav {
+  width: 100px;
+}
