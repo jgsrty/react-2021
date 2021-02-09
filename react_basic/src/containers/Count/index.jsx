@@ -36,6 +36,7 @@ class Count extends Component {
     return (
       <div>
         <h3>当前求和：{this.props.count}</h3>
+        <h5>总人数为：{this.props.personCount}</h5>
         <select ref={(e) => (this.selectNum = e)}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -52,15 +53,10 @@ class Count extends Component {
 }
 
 export default connect(
-  (data) => ({ count: data.count }),
+  (data) => ({ count: data.count, personCount: data.persons.length }),
   {
     incrementAction,
     decrementAction,
     asyncIncrementAction,
   }
-  // (dispatch) => ({
-  //   jia: (number) => dispatch(incrementAction(number)),
-  //   jian: (number) => dispatch(decrementAction(number)),
-  //   jianAsync: (number, time) => dispatch(asyncIncrementAction(number, time)),
-  // })
 )(Count);

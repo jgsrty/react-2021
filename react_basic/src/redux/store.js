@@ -1,17 +1,11 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import countReducer from "./reducers/count";
-import personReducer from "./reducers/person";
+import { createStore, applyMiddleware } from "redux";
+import allReducer from "./reducers";
 import reduxThunk from "redux-thunk";
-
-const allReducer = combineReducers({
-  he: countReducer,
-  ren: personReducer,
-});
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const store = createStore(
   allReducer,
-  // combineReducers({ countReducer: countReducer(), personReducer: personReducer() }),
-  applyMiddleware(reduxThunk)
+  composeWithDevTools(applyMiddleware(reduxThunk))
 );
 
 export default store;
